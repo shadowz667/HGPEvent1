@@ -166,6 +166,14 @@ public class Dish {
 		return procedure;
 	}
 
+	public ArrayList<Ingredient> getMyIngredients() {
+		return myIngredients;
+	}
+
+	public ArrayList<String> getMySteps() {
+		return mySteps;
+	}
+
 	private boolean another() {
 		Input take = new Input();
 		boolean isYes = take.getBoolean("Another?");

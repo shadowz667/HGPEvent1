@@ -57,6 +57,17 @@ public class EventDay {
 			stuff.shoppingList();
 		}
 	}
+	public String toString(){
+		String storable = ohCaptainMyCaptain + " ";
+		for(Dish item: theStuff){
+			storable = storable + item.getName();
+			storable = storable + item.getNumberServed();
+			for(Ingredient thyme: item.g)
+		}
+		
+		
+		return storable;
+	}
 
 	public String getOhCaptainMyCaptain() {
 		return ohCaptainMyCaptain;
