@@ -8,7 +8,9 @@ public class EventDay {
 	private Reservations theGoodLittleBoys;
 	private ArrayList<Dish> theStuff;
 	private String ohCaptainMyCaptain;
-	public EventDay(String leader){
+	private String date;
+	public EventDay(String leader, String date){
+		this.date = date;
 		ohCaptainMyCaptain = leader;
 		theStuff = dishGen();
 		theGoodLittleBoys = reservationControl();
@@ -18,9 +20,11 @@ public class EventDay {
 	private ArrayList<Dish> dishGen() {
 		ArrayList<Dish> temp = new ArrayList<Dish>();
 		Scanner reader = new Scanner(System.in);
+		Input output = new Input();
 		boolean control;
-		control = true;
-		System.out.println("Please enter your main dish");
+		output.showInformation("Please enter your main dish");
+		temp.add(new Dish());
+		control = another();
 		while(control){
 			temp.add(new Dish());
 			control = another();
@@ -39,8 +43,9 @@ public class EventDay {
 	}
 	private boolean another(){
 		String response;
+		Input output = new Input();
 		Scanner reader = new Scanner(System.in);
-		System.out.println("Add a side?");
+		output.showInformation("Add a side?");
 		response = reader.nextLine();
 		
 		if(response.equalsIgnoreCase("No")){
@@ -57,7 +62,7 @@ public class EventDay {
 			stuff.shoppingList();
 		}
 	}
-	public String toString(){
+	/*public String toString(){
 		String storable = ohCaptainMyCaptain + " ";
 		for(Dish item: theStuff){
 			storable = storable + item.getName();
@@ -67,7 +72,7 @@ public class EventDay {
 		
 		
 		return storable;
-	}
+	}*/
 
 	public String getOhCaptainMyCaptain() {
 		return ohCaptainMyCaptain;
