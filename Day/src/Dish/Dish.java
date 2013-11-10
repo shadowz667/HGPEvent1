@@ -1,151 +1,174 @@
+// The amount 1 dish serves (howManyServedByDish)
+// The steps you take to prepare a dish [createProcedure()]
+// (Display) Take in from the day class the number of people attending(done) then divide that by the amount served by a single dish (done) to
+// calc the number of dishes needed, and apply that to the ingredients(Done)
 package Dish;
 import java.util.ArrayList;
 import java.util.Scanner;
-//The amount 1 dish serves (howManyServedByDish)
-//The steps you take to prepare a dish [createProcedure()]
-//(Display) Take in from the day class the number of people attending(done) then divide that by the amount served by a single dish (done) to
-//calc the number of dishes needed, and apply that to the ingredients(Done)
-import java.util.ArrayList;
-import java.util.Scanner;
+
 public class Dish {
+	final int RESTRAINT = 20;
+	final int INGREDIENT_RESTRAINT = 15;
 	private String myDishName;
 	private ArrayList<Ingredient> myIngredients;
 	private ArrayList<String> mySteps;
 	private int myNumServed;
-	//private int myNumSteps;
-	
-	public Dish(){
+
+	public Dish() {
 		myDishName = nameDish();
 		myNumServed = howManyServedByDish();
 		myIngredients = addIngredients();
 		mySteps = createProcedure();
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		return myDishName;
 	}
-	
-	public int getNumberServed(){
+
+	public int getNumberServed() {
 		return myNumServed;
 	}
-	
-	private int howManyServedByDish(){
+
+	private int howManyServedByDish() {
 		int numServed;
-		Scanner reader = new Scanner(System.in);
-		System.out.println("How many does this dish serve?");
-		numServed = reader.nextInt();
-		
+		Input take = new Input();
+		/*
+		 * Scanner reader = new Scanner(System.in);
+		 * System.out.println("How many does this dish serve?"); numServed =
+		 * reader.nextInt();
+		 */
+
+		numServed = take.getInt("How many does this dish serve?");
 		return numServed;
 	}
-	private String nameDish(){
+
+	private String nameDish() {
 		String name;
-		Scanner reader = new Scanner(System.in);
-		System.out.println("What is the name of your dish?");
-		name = reader.nextLine();
-		
+		Input take = new Input();
+		/*
+		 * Scanner reader = new Scanner(System.in);
+		 * System.out.println("What is the name of your dish?"); name =
+		 * reader.nextLine();
+		 */
+		name = take.getString("What is the name of your dish?");
+
 		return name;
 	}
-	
-	private ArrayList<String> createProcedure(){
+
+	private ArrayList<String> createProcedure() {
 		String directions;
 		int i = 1;
 		boolean another = true;
-		
 		ArrayList<String> procedure = new ArrayList<String>();
-		Scanner reader = new Scanner(System.in);
-		System.out.println("Here, I ask that you describe the steps for making your dish.");
-		while(another){
-			System.out.println("Please describe Step " + i + ".");
-			directions = reader.nextLine();
-			
+
+		Input take = new Input();
+		// Scanner reader = new Scanner(System.in);
+		take.showInformation("Here, I ask that you describe the steps for making your dish.");
+		while (another) {
+			// System.out.println("Please describe Step " + i + ".");
+			directions = take.getString("Please describe Step " + i + ".");
+
 			procedure.add(directions);
 			i++;
 			another = another();
 		}
 		return procedure;
 	}
-	
-	public boolean shoppingList(int numAttending){
+
+	public void choices() {
+		Input take = new Input();
+		int response = take.shoppingOrProcedure();
+
+		if (response == 0) {
+			procedure();
+		} else {
+			shoppingList();
+		}
+	}
+
+	public boolean shoppingList() {
 		int numSteps = myIngredients.size();
+		ArrayList<String> listofstrings = new ArrayList<String>();
 		double howMuchOf;
-		String name, units;
-		
-		System.out.println("Ingredients: ");
-		for(int i = 0; i<numSteps; i++){
+		String title, name, units;
+		Output give = new Output();
+		title = "Ingredients: ";
+		for (int i = 0; i < numSteps; i++) {
+			String message;
 			Ingredient thyme = myIngredients.get(i);
-			howMuchOf = thyme.amountPerServing() * (double)(numAttending/myNumServed);
+
+			int scaler = (int) (((double) (RESTRAINT) / (double) (myNumServed)) + .99);
+
+			howMuchOf = (thyme.amountPerServing() * scaler);
 			name = thyme.nameOfIngredient();
 			units = thyme.measuredIn();
-			System.out.println(howMuchOf + " " + units + " of " + name);
+			message = (howMuchOf + " " + units + " of " + name);
+
+			listofstrings.add(message);
 		}
-		System.out.println();
+		give.printStringArray(listofstrings, title);
 		return true;
 	}
+
 	
-	public boolean procedure(){
-		System.out.println("Follow these steps for a perfect dish of " + myDishName);
-		System.out.println("Ingredients: ");
-		for(int i = 0; i <mySteps.size(); i++){
-			System.out.print("Step " +(i+1)+": ");
-			System.out.println(mySteps.get(i));
+	public boolean procedure() {
+		Output give = new Output();
+		String message = "";
+		for (int i = 0; i < mySteps.size(); i++) {
+			message = message + ("Step " + (i + 1) + ": " + mySteps.get(i) + "\n");
 		}
+		give.printProcedure(myDishName, message);
 		return true;
 	}
-	
-	private ArrayList<Ingredient> addIngredients(){
-		//variables I need
+
+	private ArrayList<Ingredient> addIngredients() {
+		// variables I need
 		double howMuchPerServing;
 		String nameOfIngredient, howItsMeasured;
 		boolean another;
-		//objects I need, 2 Scanners because String does weird things sometimes
-		Scanner reader = new Scanner(System.in);
-		Scanner reader2 = new Scanner(System.in);
-		Scanner reader3 = new Scanner(System.in);
-		
-		//ArrayList of Ingredients to be produced for the Dish
+		// objects I need, 2 Scanners for the individual Strings because String
+		// does weird things sometimes
+		// never mind, used GUI instead
+		Input take = new Input();
+
 		ArrayList<Ingredient> procedure = new ArrayList<Ingredient>();
-		
-		//Get user input
-		System.out.println("What is the name of your first ingredient?");
-		nameOfIngredient = reader.nextLine();
-		
-		System.out.println("What do you measure in?");
-		howItsMeasured = reader2.nextLine();
-		
-		System.out.println("How many " + howItsMeasured + " do you need per serving?");
-		howMuchPerServing = reader3.nextDouble();
-		
-		Ingredient food = new Ingredient(nameOfIngredient, howMuchPerServing, howItsMeasured);
-		procedure.add(food);
-		
-		another = another();
-		while(another){
-			System.out.println("What is the name of your ingredient?");
-			nameOfIngredient = reader.nextLine();
-			
-			System.out.println("What do you measure in?");
-			howItsMeasured = reader2.nextLine();
-			
-			System.out.println("How many " + howItsMeasured + " do you need?");
-			howMuchPerServing = reader3.nextDouble();
-			
-			Ingredient moreFood = new Ingredient(nameOfIngredient, howMuchPerServing, howItsMeasured);
-			procedure.add(moreFood);
+
+		// Get user input
+		while (INGREDIENT_RESTRAINT > procedure.size()) {
+			nameOfIngredient = take
+					.getString("What is the name of your first ingredient?");
+
+			howItsMeasured = take.getString("What do you measure in?");
+
+			howMuchPerServing = take.getDouble("How many " + howItsMeasured
+					+ " do you need per serving?");
+
+			Ingredient food = new Ingredient(nameOfIngredient,
+					howMuchPerServing, howItsMeasured);
+			procedure.add(food);
+
 			another = another();
+			while (another) {
+				nameOfIngredient = take
+						.getString("What is the name of your ingredient?");
+
+				howItsMeasured = take.getString("What do you measure in?");
+
+				howMuchPerServing = take.getDouble("How many " + howItsMeasured
+						+ " do you need?");
+
+				Ingredient moreFood = new Ingredient(nameOfIngredient,
+						howMuchPerServing, howItsMeasured);
+				procedure.add(moreFood);
+				another = another();
+			}
 		}
 		return procedure;
 	}
-	
-	
-	private boolean another(){
-		String response;
-		Scanner reader = new Scanner(System.in);
-		System.out.println("Add another?");
-		response = reader.nextLine();
-		
-		if(response.equalsIgnoreCase("No")){
-			return false;
-		} 
-		return true;
+
+	private boolean another() {
+		Input take = new Input();
+		boolean isYes = take.getBoolean("Another?");
+		return isYes;
 	}
 }

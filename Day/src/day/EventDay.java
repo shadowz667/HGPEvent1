@@ -25,7 +25,7 @@ public class EventDay {
 			temp.add(new Dish());
 			control = another();
 		}
-		return null;
+		return temp;
 	}
 	
 	private Reservations reservationControl() {
@@ -54,7 +54,7 @@ public class EventDay {
 	}
 	public void displayShoppingList(){
 		for(Dish stuff: theStuff){
-			stuff.shoppingList(theGoodLittleBoys.getReserved().size());
+			stuff.shoppingList();
 		}
 	}
 
