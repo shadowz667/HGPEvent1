@@ -47,4 +47,25 @@ public class EventDay {
 		} 
 		return true;
 	}
+	public void displayShoppingList(){
+		for(Dish stuff: theStuff){
+			stuff.shoppingList(theGoodLittleBoys.getReserved().size());
+		}
+	}
+
+	public String getOhCaptainMyCaptain() {
+		return ohCaptainMyCaptain;
+	}
+
+	public void setOhCaptainMyCaptain(String ohCaptainMyCaptain) {
+		this.ohCaptainMyCaptain = ohCaptainMyCaptain;
+	}
+
+	public Reservations getTheGoodLittleBoys() {
+		return theGoodLittleBoys;
+	}
+
+	public ArrayList<Dish> getTheStuff() {
+		return theStuff;
+	}
 }
