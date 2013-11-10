@@ -1,4 +1,4 @@
-
+package Dish;
 import java.util.ArrayList;
 public class Ingredient {
 	private String myName; 
