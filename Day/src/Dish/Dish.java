@@ -4,11 +4,9 @@
 // calc the number of dishes needed, and apply that to the ingredients(Done)
 package Dish;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Dish {
 	final int RESTRAINT = 20;
-	final int INGREDIENT_RESTRAINT = 15;
 	private String myDishName;
 	private ArrayList<Ingredient> myIngredients;
 	private ArrayList<String> mySteps;
@@ -134,7 +132,7 @@ public class Dish {
 		ArrayList<Ingredient> procedure = new ArrayList<Ingredient>();
 
 		// Get user input
-		while (INGREDIENT_RESTRAINT > procedure.size()) {
+		
 			nameOfIngredient = take
 					.getString("What is the name of your first ingredient?");
 
@@ -162,7 +160,6 @@ public class Dish {
 				procedure.add(moreFood);
 				another = another();
 			}
-		}
 		return procedure;
 	}
 

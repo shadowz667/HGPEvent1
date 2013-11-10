@@ -1,5 +1,4 @@
 package day;
-import java.util.Scanner;
 import reservations.*;
 import Dish.*;
 
@@ -19,7 +18,6 @@ public class EventDay {
 
 	private ArrayList<Dish> dishGen() {
 		ArrayList<Dish> temp = new ArrayList<Dish>();
-		Scanner reader = new Scanner(System.in);
 		Input output = new Input();
 		boolean control;
 		output.showInformation("Please enter your main dish");
@@ -31,7 +29,7 @@ public class EventDay {
 		}
 		return temp;
 	}
-	
+
 	private Reservations reservationControl() {
 		Dish main = theStuff.get(0);
 		int scale = main.getNumberServed();
@@ -42,16 +40,13 @@ public class EventDay {
 		return new Reservations(scale);
 	}
 	private boolean another(){
-		String response;
+		boolean isYes;
 		Input output = new Input();
-		Scanner reader = new Scanner(System.in);
-		output.showInformation("Add a side?");
-		response = reader.nextLine();
-		
-		if(response.equalsIgnoreCase("No")){
-			return false;
+		isYes = output.getBoolean("Add a side?");;
+		if(isYes){
+			return true;
 		} 
-		return true;
+		return false;
 	}
 	public boolean reserve(String name, boolean hasPaid){
 		System.out.println(theGoodLittleBoys.add(name, hasPaid));
@@ -88,5 +83,8 @@ public class EventDay {
 
 	public ArrayList<Dish> getTheStuff() {
 		return theStuff;
+	}
+	public String getDate() {
+		return date;
 	}
 }
