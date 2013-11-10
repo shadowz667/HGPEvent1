@@ -12,6 +12,7 @@ public class EventDay {
 		ohCaptainMyCaptain = leader;
 		theStuff = dishGen();
 		theGoodLittleBoys = reservationControl();
+		reserve(leader, true);
 	}
 
 	private ArrayList<Dish> dishGen() {
@@ -45,6 +46,10 @@ public class EventDay {
 		if(response.equalsIgnoreCase("No")){
 			return false;
 		} 
+		return true;
+	}
+	public boolean reserve(String name, boolean hasPaid){
+		System.out.println(theGoodLittleBoys.add(name, hasPaid));
 		return true;
 	}
 	public void displayShoppingList(){
