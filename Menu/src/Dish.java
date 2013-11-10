@@ -70,7 +70,10 @@ public class Dish {
 		System.out.println("Ingredients: ");
 		for(int i = 0; i<numSteps; i++){
 			Ingredient thyme = myIngredients.get(i);
-			howMuchOf = thyme.amountPerServing() * (double)(numAttending/myNumServed);
+			
+			int scaler = (int)(((double)(numAttending)/(double)(myNumServed)) +.99);
+			
+			howMuchOf = (thyme.amountPerServing() * scaler);
 			name = thyme.nameOfIngredient();
 			units = thyme.measuredIn();
 			System.out.println(howMuchOf + " " + units + " of " + name);

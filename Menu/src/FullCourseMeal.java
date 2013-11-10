@@ -6,12 +6,12 @@ public class FullCourseMeal {
 		//System.out.println("How many does this dish feed?");
 		howMany = reader.nextInt();*/
 		Dish dinner = new Dish();
-		System.out.println("Dish: " + dinner.getName());
-		System.out.println("Feeds " + dinner.getNumberServed());
-		System.out.println("Requires: ");
+		//System.out.println("Dish: " + dinner.getName());
+	//	System.out.println("Feeds " + dinner.getNumberServed());
+	//	System.out.println("Requires: ");
 		dinner.shoppingList(20);
 		
-		System.out.println("This is how you make it: ");
-		dinner.procedure();
+		/*System.out.println("This is how you make it: ");
+		dinner.procedure();*/
 	}
 }
